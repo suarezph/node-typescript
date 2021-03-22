@@ -16,7 +16,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 const register = (req: Request, res: Response, next: NextFunction) => {
-    let { username, password } = req.body;
+    let { fullname, email, password } = req.body;
 
     bcryptjs.hash(password, 10, (hashError, hash) => {
         if (hashError) {
@@ -28,7 +28,8 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 
         const _user = new User({
             _id: new mongoose.Types.ObjectId(),
-            username,
+            fullname,
+            email,
             password: hash
         });
 
@@ -49,9 +50,9 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const login = (req: Request, res: Response, next: NextFunction) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
 
-    User.find({ username })
+    User.find({ email })
         .exec()
         .then((users) => {
             if (users.length !== 1) {

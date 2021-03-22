@@ -1,5 +1,6 @@
 import http from 'http';
 import express from 'express';
+import cors from 'cors';
 import loggng from './config/logging';
 import config from './config/config';
 import logging from './config/logging';
@@ -30,6 +31,8 @@ router.use((req, res, next) => {
 
     next();
 });
+
+router.use(cors());
 
 /** Parse the request */
 router.use(express.urlencoded({ extended: false }));

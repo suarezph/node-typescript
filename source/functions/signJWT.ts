@@ -10,12 +10,12 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
     var expirationTime = timeSinchEpoch + Number(config.server.token.expireTiime) * 100000;
     var expirationTimeInSeconds = Math.floor(expirationTime / 1000);
 
-    logging.info(NAMESPACE, `Attempting to sign token for ${user.username} `);
+    logging.info(NAMESPACE, `Attempting to sign token for ${user.email} `);
 
     try {
         jwt.sign(
             {
-                usernname: user.username
+                email: user.email
             },
             config.server.token.secret,
             {
